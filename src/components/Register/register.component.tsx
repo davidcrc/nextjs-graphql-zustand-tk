@@ -1,14 +1,13 @@
 "use client";
 
 import React from "react";
-import TextInput from "../TextInput";
-import { useMutation } from "@apollo/client";
+import { TextInput } from "@/components";
 import { useUserStore } from "@/stores/userStore";
 import useGeneralStore from "@/stores/generalStore";
 import { GraphQLErrorExtensions } from "graphql";
-import { useRegisterUserMutation } from "../../graphql/generated/graphql";
+import { useRegisterUserMutation } from "@/graphql/generated/graphql";
 
-function Register() {
+const Register = () => {
   const [registerUserMutation, { loading, error, data }] =
     useRegisterUserMutation();
   const setUser = useUserStore((state) => state.setUser);
@@ -121,6 +120,6 @@ function Register() {
       </div>
     </>
   );
-}
+};
 
 export default Register;

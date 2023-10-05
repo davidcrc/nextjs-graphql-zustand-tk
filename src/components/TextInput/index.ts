@@ -1,1 +1,1 @@
-export { default } from "./TextInput.component";
+export { default as TextInput } from "./text-input.component";

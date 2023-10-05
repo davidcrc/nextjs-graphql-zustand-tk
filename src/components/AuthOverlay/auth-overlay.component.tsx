@@ -3,10 +3,9 @@
 import React from "react";
 import { ImCross } from "react-icons/im";
 import useGeneralStore from "@/stores/generalStore";
-import Login from "../Login/login.component";
-import Register from "../Register";
+import { Login, Register } from "@/components";
 
-function AuthOverlay() {
+const AuthOverlay = () => {
   const [isRegistered, setIsRegistered] = React.useState(false);
   const setLoginIsOpen = useGeneralStore((state) => state.setLoginIsOpen);
   const isLoginOpen = useGeneralStore((state) => state.isLoginOpen);
@@ -39,6 +38,6 @@ function AuthOverlay() {
       </div>
     </div>
   );
-}
+};
 
 export default AuthOverlay;

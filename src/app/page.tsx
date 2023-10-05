@@ -1,10 +1,24 @@
-import AuthOverlay from "../components/AuthOverlay";
+"use client";
+
+import useGeneralStore from "@/stores/generalStore";
+import { AuthOverlay, Feed, Navbar, SideNavMain } from "@/components";
 
 export default function Home() {
+  const isLoginOpen = useGeneralStore((state) => state.isLoginOpen);
+
   return (
-    <div className="">
-      Home page
-      <AuthOverlay />
-    </div>
+    <>
+      <header>
+        <Navbar />
+      </header>
+
+      <SideNavMain />
+
+      <Feed>
+        <div>feed</div>
+      </Feed>
+
+      {isLoginOpen && <AuthOverlay />}
+    </>
   );
 }

@@ -1,1 +1,1 @@
-export { default } from "./AuthOverlay.component";
+export { default as AuthOverlay } from "./auth-overlay.component";

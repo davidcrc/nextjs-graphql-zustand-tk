@@ -1,1 +1,1 @@
-export { default } from "./register.component";
+export { default as Register } from "./register.component";

@@ -2,7 +2,17 @@
 
 import React, { useEffect } from "react";
 
-function TextInput({
+type TextInputProps = {
+  placeHolder: string;
+  inputType: string;
+  max: number;
+  error: string;
+  autoFocus: boolean;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+};
+
+const TextInput = ({
   placeHolder,
   inputType,
   max,
@@ -10,15 +20,7 @@ function TextInput({
   autoFocus,
   onChange,
   value,
-}: {
-  placeHolder: string;
-  inputType: string;
-  max: number;
-  error: string;
-  autoFocus: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string;
-}) {
+}: TextInputProps) => {
   useEffect(() => {
     if (autoFocus) {
       const input = document.getElementById(`input-${placeHolder}`);
@@ -43,6 +45,6 @@ function TextInput({
       )}
     </div>
   );
-}
+};
 
 export default TextInput;

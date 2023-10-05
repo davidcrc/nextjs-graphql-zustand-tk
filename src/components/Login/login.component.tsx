@@ -1,11 +1,11 @@
 import React from "react";
 
-import { useUserStore } from "../../stores/userStore";
-import useGeneralStore from "../../stores/generalStore";
-import { useLoginUserMutation } from "../../graphql/generated/graphql";
-import TextInput from "../TextInput";
+import { useUserStore } from "@/stores/userStore";
+import useGeneralStore from "@/stores/generalStore";
+import { useLoginUserMutation } from "@/graphql/generated/graphql";
+import { TextInput } from "@/components";
 
-function Login() {
+const Login = () => {
   const [loginData, setLoginData] = React.useState({
     email: "",
     password: "",
@@ -77,6 +77,6 @@ function Login() {
       </div>
     </>
   );
-}
+};
 
 export default Login;
