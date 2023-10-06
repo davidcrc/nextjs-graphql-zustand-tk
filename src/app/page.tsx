@@ -8,17 +8,13 @@ export default function Home() {
 
   return (
     <>
-      <header>
-        <Navbar />
-      </header>
-
       <SideNavMain />
 
       <Feed>
         <div>feed</div>
       </Feed>
 
-      {isLoginOpen && <AuthOverlay />}
+      {/* {isLoginOpen && <AuthOverlay />} */}
     </>
   );
 }

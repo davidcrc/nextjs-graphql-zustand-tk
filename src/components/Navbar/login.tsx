@@ -5,9 +5,9 @@ import { BsThreeDotsVertical, BsFillSendFill } from "react-icons/bs";
 import { BiMessageDetail } from "react-icons/bi";
 import { GrLogout } from "react-icons/gr";
 import { BsFillPersonFill } from "react-icons/bs";
-import useGeneralStore from "../../stores/generalStore";
-import { useLogoutUserMutation } from "../../graphql/generated/graphql";
-import { useUserStore } from "../../stores/userStore";
+import useGeneralStore from "@/stores/generalStore";
+import { useLogoutUserMutation } from "@/graphql/generated/graphql";
+import { useUserStore } from "@/stores/userStore";
 
 const Login = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -73,7 +73,6 @@ const Login = () => {
                 href={"/profile/" + user.id}
                 className="flex flex-col px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
               >
-                {" "}
                 <BsFillPersonFill size="20" color="#161724" />
                 <span className="font-semibold text-sm">Profile</span>
               </Link>

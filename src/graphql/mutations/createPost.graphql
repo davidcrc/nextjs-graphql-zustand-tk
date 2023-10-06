@@ -1,0 +1,7 @@
+mutation CreatePost($text: String!, $video: Upload!) {
+  createPost(text: $text, video: $video) {
+    id
+    text
+    video
+  }
+}

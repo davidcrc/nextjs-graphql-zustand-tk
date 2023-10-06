@@ -7,3 +7,4 @@ export * from "./Navbar";
 export * from "./Register";
 export * from "./SideNavMain";
 export * from "./TextInput";
+export * from "./UploadError";

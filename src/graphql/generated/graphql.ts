@@ -16,12 +16,19 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: any; output: any; }
+  Upload: { input: any; output: any; }
 };
 
 export type ErrorType = {
   __typename?: 'ErrorType';
   code?: Maybe<Scalars['String']['output']>;
   message: Scalars['String']['output'];
+};
+
+export type LikeType = {
+  __typename?: 'LikeType';
+  id: Scalars['Int']['output'];
+  userId: Scalars['Int']['output'];
 };
 
 export type LoginDto = {
@@ -37,10 +44,23 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createPost: PostType;
+  deletePost: PostType;
   login: LoginResponse;
   logout: Scalars['String']['output'];
   refreshToken: Scalars['String']['output'];
   register: RegisterResponse;
+};
+
+
+export type MutationCreatePostArgs = {
+  text: Scalars['String']['input'];
+  video: Scalars['Upload']['input'];
+};
+
+
+export type MutationDeletePostArgs = {
+  id: Scalars['Float']['input'];
 };
 
 
@@ -53,10 +73,50 @@ export type MutationRegisterArgs = {
   registerInput: RegisterDto;
 };
 
+export type PostDetails = {
+  __typename?: 'PostDetails';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['Int']['output'];
+  likes?: Maybe<Array<LikeType>>;
+  otherPostIds?: Maybe<Array<Scalars['Float']['output']>>;
+  text: Scalars['String']['output'];
+  user: User;
+  video: Scalars['String']['output'];
+};
+
+export type PostType = {
+  __typename?: 'PostType';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['Int']['output'];
+  likes?: Maybe<Array<LikeType>>;
+  text: Scalars['String']['output'];
+  user: User;
+  video: Scalars['String']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
+  getPostById: PostDetails;
+  getPosts: Array<PostType>;
+  getPostsByUserId: Array<PostType>;
   getProtectedData: Scalars['String']['output'];
   getUsers: Array<User>;
+};
+
+
+export type QueryGetPostByIdArgs = {
+  id: Scalars['Float']['input'];
+};
+
+
+export type QueryGetPostsArgs = {
+  skip?: Scalars['Int']['input'];
+  take?: Scalars['Int']['input'];
+};
+
+
+export type QueryGetPostsByUserIdArgs = {
+  userId: Scalars['Float']['input'];
 };
 
 export type RegisterDto = {
@@ -83,6 +143,14 @@ export type User = {
   password: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
+
+export type CreatePostMutationVariables = Exact<{
+  text: Scalars['String']['input'];
+  video: Scalars['Upload']['input'];
+}>;
+
+
+export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'PostType', id: number, text: string, video: string } };
 
 export type LogoutUserMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -113,6 +181,42 @@ export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetUsersQuery = { __typename?: 'Query', getUsers: Array<{ __typename?: 'User', id: number, fullname: string, email: string, image?: string | null }> };
 
 
+export const CreatePostDocument = gql`
+    mutation CreatePost($text: String!, $video: Upload!) {
+  createPost(text: $text, video: $video) {
+    id
+    text
+    video
+  }
+}
+    `;
+export type CreatePostMutationFn = Apollo.MutationFunction<CreatePostMutation, CreatePostMutationVariables>;
+
+/**
+ * __useCreatePostMutation__
+ *
+ * To run a mutation, you first call `useCreatePostMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePostMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPostMutation, { data, loading, error }] = useCreatePostMutation({
+ *   variables: {
+ *      text: // value for 'text'
+ *      video: // value for 'video'
+ *   },
+ * });
+ */
+export function useCreatePostMutation(baseOptions?: Apollo.MutationHookOptions<CreatePostMutation, CreatePostMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, options);
+      }
+export type CreatePostMutationHookResult = ReturnType<typeof useCreatePostMutation>;
+export type CreatePostMutationResult = Apollo.MutationResult<CreatePostMutation>;
+export type CreatePostMutationOptions = Apollo.BaseMutationOptions<CreatePostMutation, CreatePostMutationVariables>;
 export const LogoutUserDocument = gql`
     mutation LogoutUser {
   logout
