@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
@@ -93,7 +95,7 @@ const PostFeed = ({ post }: { post: PostType }) => {
                 <IoChatbubbleEllipses size="25" color="black" />
               </button>
               <span className="text-xs text-gray-800 font-semitbold">
-                {/* {data?.getCommentsByPostId.length} */}
+                {data?.getCommentsByPostId.length}
               </span>
             </div>
           </div>
