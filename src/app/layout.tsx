@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { inter, roboto_mono, open_sans } from "./fonts";
 import { ApolloWrapper } from "@/lib/apollo-provider";
-import { Navbar } from "@/components";
+import { Navbar, MainLayout } from "@/components";
 
 export const metadata: Metadata = {
   title: "TK app",
@@ -27,7 +27,7 @@ export default function RootLayout({
           <header>
             <Navbar />
           </header>
-          {children}
+          <MainLayout>{children}</MainLayout>
         </body>
       </ApolloWrapper>
     </html>

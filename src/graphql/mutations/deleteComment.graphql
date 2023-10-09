@@ -1,0 +1,6 @@
+mutation DeleteComment($id: Float!) {
+  deleteComment(id: $id) {
+    id
+    __typename
+  }
+}

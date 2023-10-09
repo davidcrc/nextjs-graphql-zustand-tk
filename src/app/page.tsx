@@ -1,20 +1,15 @@
-"use client";
-
-import useGeneralStore from "@/stores/generalStore";
-import { AuthOverlay, Feed, Navbar, SideNavMain } from "@/components";
+import { Feed, Navbar, SideNavMain } from "@/components";
 
 export default function Home() {
-  const isLoginOpen = useGeneralStore((state) => state.isLoginOpen);
-
   return (
     <>
-      <SideNavMain />
+      <div>
+        <SideNavMain />
+      </div>
 
-      <Feed>
-        <div>feed</div>
-      </Feed>
-
-      {/* {isLoginOpen && <AuthOverlay />} */}
+      <div className="ml-[55px] lg:ml-[310px] w-full">
+        <Feed />
+      </div>
     </>
   );
 }

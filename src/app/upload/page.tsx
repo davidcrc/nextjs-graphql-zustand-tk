@@ -44,7 +44,7 @@ const UploadPage = () => {
 
       setIsUploading(false);
       setShow(true);
-      // clearVideo();
+      clearVideo();
     } catch (err) {
       console.log(err);
     }

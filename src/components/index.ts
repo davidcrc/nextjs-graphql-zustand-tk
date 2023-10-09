@@ -8,3 +8,5 @@ export * from "./Register";
 export * from "./SideNavMain";
 export * from "./TextInput";
 export * from "./UploadError";
+export * from "./MainLayout";
+export * from "./PostFeed";

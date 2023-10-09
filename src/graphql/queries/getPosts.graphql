@@ -1,0 +1,18 @@
+query GetPosts($skip: Int!, $take: Int!) {
+  getPosts(skip: $skip, take: $take) {
+    id
+    text
+    video
+    user {
+      id
+      uuid
+      fullname
+      email
+    }
+    likes {
+      id
+      userId
+      postId
+    }
+  }
+}
