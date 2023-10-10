@@ -14,6 +14,8 @@ import {
 } from "@/graphql/generated/graphql";
 
 const PostFeed = ({ post }: { post: PostType }) => {
+  const server = process.env.NEXT_PUBLIC_URL_SERVER_GRAPHQL;
+
   const video = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     video.current?.play();
@@ -64,10 +66,10 @@ const PostFeed = ({ post }: { post: PostType }) => {
           <div className="relative min-h-[480px] max-h-[580px] max-w-[260px] flex items-center bg-black rounded-xl">
             <video
               ref={video}
-              src={"http://localhost:5000" + post?.video}
+              src={`${server}/${post?.video}`}
+              className="rounded-xl object-cover mx-auto h-full"
               loop
               muted
-              className="rounded-xl object-cover mx-auto h-full"
             />
             <Image
               className="absolute right-2 bottom-14"
