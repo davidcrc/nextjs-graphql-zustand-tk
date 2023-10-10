@@ -10,3 +10,5 @@ export * from "./TextInput";
 export * from "./UploadError";
 export * from "./MainLayout";
 export * from "./PostFeed";
+export * from "./PostProfile";
+export * from "./EditProfileOverlay";

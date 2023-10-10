@@ -67,6 +67,7 @@ export type Mutation = {
   refreshToken: Scalars['String']['output'];
   register: RegisterResponse;
   unlikePost: LikeType;
+  updateUserProfile: User;
 };
 
 
@@ -109,6 +110,13 @@ export type MutationRegisterArgs = {
 
 export type MutationUnlikePostArgs = {
   postId: Scalars['Float']['input'];
+};
+
+
+export type MutationUpdateUserProfileArgs = {
+  bio?: InputMaybe<Scalars['String']['input']>;
+  fullname?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['Upload']['input']>;
 };
 
 export type PostDetails = {
@@ -230,7 +238,7 @@ export type LoginUserMutationVariables = Exact<{
 }>;
 
 
-export type LoginUserMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', user: { __typename?: 'User', email: string, id: number, fullname: string } } };
+export type LoginUserMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', user: { __typename?: 'User', id: number, email: string, uuid: string, fullname: string, bio?: string | null, image?: string | null } } };
 
 export type RegisterUserMutationVariables = Exact<{
   fullname: Scalars['String']['input'];
@@ -248,6 +256,15 @@ export type UnlikePostMutationVariables = Exact<{
 
 
 export type UnlikePostMutation = { __typename?: 'Mutation', unlikePost: { __typename?: 'LikeType', id: number, userId: number, postId: number } };
+
+export type UpdateUserProfileMutationVariables = Exact<{
+  fullname: Scalars['String']['input'];
+  bio: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['Upload']['input']>;
+}>;
+
+
+export type UpdateUserProfileMutation = { __typename?: 'Mutation', updateUserProfile: { __typename?: 'User', id: number, fullname: string, bio?: string | null, image?: string | null } };
 
 export type GetCommentsByPostIdQueryVariables = Exact<{
   postId: Scalars['Float']['input'];
@@ -270,6 +287,13 @@ export type GetPostsQueryVariables = Exact<{
 
 
 export type GetPostsQuery = { __typename?: 'Query', getPosts: Array<{ __typename?: 'PostType', id: number, text: string, video: string, user: { __typename?: 'User', id: number, uuid: string, fullname: string, email: string }, likes?: Array<{ __typename?: 'LikeType', id: number, userId: number, postId: number }> | null }> };
+
+export type GetPostsByUserIdQueryVariables = Exact<{
+  userUUID: Scalars['String']['input'];
+}>;
+
+
+export type GetPostsByUserIdQuery = { __typename?: 'Query', getPostsByUserId: Array<{ __typename?: 'PostType', id: number, text: string, video: string, user: { __typename?: 'User', fullname: string, email: string, id: number } }> };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -462,9 +486,12 @@ export const LoginUserDocument = gql`
     mutation LoginUser($email: String!, $password: String!) {
   login(loginInput: {email: $email, password: $password}) {
     user {
-      email
       id
+      email
+      uuid
       fullname
+      bio
+      image
     }
   }
 }
@@ -573,6 +600,44 @@ export function useUnlikePostMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UnlikePostMutationHookResult = ReturnType<typeof useUnlikePostMutation>;
 export type UnlikePostMutationResult = Apollo.MutationResult<UnlikePostMutation>;
 export type UnlikePostMutationOptions = Apollo.BaseMutationOptions<UnlikePostMutation, UnlikePostMutationVariables>;
+export const UpdateUserProfileDocument = gql`
+    mutation UpdateUserProfile($fullname: String!, $bio: String!, $image: Upload) {
+  updateUserProfile(fullname: $fullname, bio: $bio, image: $image) {
+    id
+    fullname
+    bio
+    image
+  }
+}
+    `;
+export type UpdateUserProfileMutationFn = Apollo.MutationFunction<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
+
+/**
+ * __useUpdateUserProfileMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserProfileMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserProfileMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserProfileMutation, { data, loading, error }] = useUpdateUserProfileMutation({
+ *   variables: {
+ *      fullname: // value for 'fullname'
+ *      bio: // value for 'bio'
+ *      image: // value for 'image'
+ *   },
+ * });
+ */
+export function useUpdateUserProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>(UpdateUserProfileDocument, options);
+      }
+export type UpdateUserProfileMutationHookResult = ReturnType<typeof useUpdateUserProfileMutation>;
+export type UpdateUserProfileMutationResult = Apollo.MutationResult<UpdateUserProfileMutation>;
+export type UpdateUserProfileMutationOptions = Apollo.BaseMutationOptions<UpdateUserProfileMutation, UpdateUserProfileMutationVariables>;
 export const GetCommentsByPostIdDocument = gql`
     query GetCommentsByPostId($postId: Float!) {
   getCommentsByPostId(postId: $postId) {
@@ -719,6 +784,48 @@ export function useGetPostsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetPostsQueryHookResult = ReturnType<typeof useGetPostsQuery>;
 export type GetPostsLazyQueryHookResult = ReturnType<typeof useGetPostsLazyQuery>;
 export type GetPostsQueryResult = Apollo.QueryResult<GetPostsQuery, GetPostsQueryVariables>;
+export const GetPostsByUserIdDocument = gql`
+    query getPostsByUserId($userUUID: String!) {
+  getPostsByUserId(userUUID: $userUUID) {
+    id
+    text
+    video
+    user {
+      fullname
+      email
+      id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPostsByUserIdQuery__
+ *
+ * To run a query within a React component, call `useGetPostsByUserIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPostsByUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPostsByUserIdQuery({
+ *   variables: {
+ *      userUUID: // value for 'userUUID'
+ *   },
+ * });
+ */
+export function useGetPostsByUserIdQuery(baseOptions: Apollo.QueryHookOptions<GetPostsByUserIdQuery, GetPostsByUserIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPostsByUserIdQuery, GetPostsByUserIdQueryVariables>(GetPostsByUserIdDocument, options);
+      }
+export function useGetPostsByUserIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPostsByUserIdQuery, GetPostsByUserIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPostsByUserIdQuery, GetPostsByUserIdQueryVariables>(GetPostsByUserIdDocument, options);
+        }
+export type GetPostsByUserIdQueryHookResult = ReturnType<typeof useGetPostsByUserIdQuery>;
+export type GetPostsByUserIdLazyQueryHookResult = ReturnType<typeof useGetPostsByUserIdLazyQuery>;
+export type GetPostsByUserIdQueryResult = Apollo.QueryResult<GetPostsByUserIdQuery, GetPostsByUserIdQueryVariables>;
 export const GetUsersDocument = gql`
     query GetUsers {
   getUsers {

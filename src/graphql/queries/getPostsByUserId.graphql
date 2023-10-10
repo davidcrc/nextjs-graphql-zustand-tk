@@ -1,12 +1,12 @@
-# query getPostsByUserId($userId: Float!) {
-#   getPostsByUserId(userId: $userId) {
-#     id
-#     text
-#     video
-#     user {
-#       fullname
-#       email
-#       id
-#     }
-#   }
-# }
+query getPostsByUserId($userUUID: String!) {
+  getPostsByUserId(userUUID: $userUUID) {
+    id
+    text
+    video
+    user {
+      fullname
+      email
+      id
+    }
+  }
+}

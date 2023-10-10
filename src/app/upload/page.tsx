@@ -33,6 +33,7 @@ const UploadPage = () => {
       text: caption,
       video: fileData,
     },
+    refetchQueries: ["GetPosts"],
   });
 
   const handleCreatePost = async () => {
@@ -94,9 +95,9 @@ const UploadPage = () => {
   }, [errorType, caption]);
 
   return (
-    <>
+    <div className="flex flex-col w-full">
       <UploadError errorType={errorType} />
-      <div className="bg-[#F8f8f8] h-[100vh]">
+      <div className="bg-[#F8f8f8] h-[100vh] w-full">
         <div className="flex justify-between mx-auto w-full px-2 max-w-[1140px]">
           <div className="w-full mt-[80px] mb-[40px] bg-white shadow-lg rounded-md py-6 md:px-10 px-4">
             <div>
@@ -243,7 +244,7 @@ const UploadPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

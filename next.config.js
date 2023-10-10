@@ -8,7 +8,8 @@ const nextConfig = {
         port: '',
         // pathname: '/account123/**',
       },
-    ]
+    ],
+    domains: ["localhost"]
   }
 }
 

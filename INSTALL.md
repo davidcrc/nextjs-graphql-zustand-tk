@@ -41,3 +41,9 @@ yarn add react-icons
 ```bash
 yarn add -D jwt-decode
 ```
+
+## Add react cropper
+
+```bash
+yarn add react-cropper
+```

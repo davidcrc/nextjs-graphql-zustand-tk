@@ -2,11 +2,12 @@ import { create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 
 export interface User {
-  id?: string;
+  id?: string | number;
+  uuid?: string;
   fullname: string;
   email?: string;
   bio?: string;
-  image?: string;
+  image?: string | null | undefined;
 }
 
 export interface UserActions {

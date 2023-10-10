@@ -13,8 +13,19 @@ const Login = () => {
   const setUser = useUserStore((state) => state.setUser);
   const setLoginIsOpen = useGeneralStore((state) => state.setLoginIsOpen);
   const [loginUser, { loading, error, data }] = useLoginUserMutation({
-    onCompleted: (data) => {
-      console.log("DATA", data);
+    onCompleted: (response) => {
+      console.log("DATA", response);
+      if (response) {
+        setUser({
+          id: response.login.user.id,
+          uuid: response.login.user.uuid,
+          fullname: response.login.user.fullname,
+          email: response.login.user.email,
+          bio: response.login.user.bio ?? "",
+          image: response.login.user.image,
+        });
+        setLoginIsOpen(false);
+      }
     },
     variables: {
       email: loginData.email,
@@ -23,9 +34,7 @@ const Login = () => {
   });
   const handleLogin = async () => {
     try {
-      const response = await loginUser();
-      setUser(response.data.login.user);
-      setLoginIsOpen(false);
+      loginUser();
     } catch (_) {
       console.log("ERROR", error);
     }

@@ -1,0 +1,8 @@
+mutation UpdateUserProfile($fullname: String!, $bio: String!, $image: Upload) {
+  updateUserProfile(fullname: $fullname, bio: $bio, image: $image) {
+    id
+    fullname
+    bio
+    image
+  }
+}

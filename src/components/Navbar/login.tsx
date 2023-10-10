@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -70,7 +72,7 @@ const Login = () => {
             >
               <Link
                 onClick={() => setShowMenu(!showMenu)}
-                href={"/profile/" + user.id}
+                href={"/profile/" + user.uuid}
                 className="flex flex-col px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
               >
                 <BsFillPersonFill size="20" color="#161724" />

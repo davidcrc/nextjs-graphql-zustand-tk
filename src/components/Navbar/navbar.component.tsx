@@ -30,16 +30,17 @@ const Navbar = () => {
             "flex items-center justify-between w-full px-6 mx-auto",
           ].join(" ")}
         >
-          <div className={pathname === "/" ? "w-[20%]" : "lg:w-[20%] w-[70%]"}>
-            <Link href="/">
-              <Image
-                src={tikTokLogo}
-                width={pathname === "/" ? "100" : "50"}
-                height={pathname === "/" ? "100" : "50"}
-                alt="logo"
-              />
-            </Link>
-          </div>
+          <Link
+            href="/"
+            className={pathname === "/" ? "w-[20%]" : "lg:w-[20%] h-[70%]"}
+          >
+            <Image
+              src={tikTokLogo}
+              width={pathname === "/" ? "100" : "50"}
+              height={pathname === "/" ? "100" : "50"}
+              alt="logo"
+            />
+          </Link>
           <div className="hidden md:flex items-center bg-[#F1F1F1] p-1 rounded-full max-w-[380px] w-full">
             <input
               type="text"
